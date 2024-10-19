@@ -49,31 +49,20 @@ public class Aplicativo {
 		
 		while (vetCastelos.size() != 1) {
 
-			int i = 0;
 			
-			for(Castelo castelo: vetCastelos) {
+			for(int i = 0; i < vetCastelos.size(); i++) {
 				
-				if(castelo == null) {
-					continue;
-				}
+				int escolha;
 				
-				int escolha = sorteio(i);
-				if (vetCastelos.get(escolha) == null) {
-					continue;
-				}
-				System.out.println("O castelo "+castelo.nome + " escolheu o castelo " +vetCastelos.get(escolha).nome);
+				do {
+				escolha = sorteio(i);
+				}while(escolha >= vetCastelos.size());
+				
+				System.out.println();
+				System.out.println("O castelo "+ vetCastelos.get(i).getNome()+ " escolheu o castelo " +vetCastelos.get(escolha).nome);
+				System.out.println("Situacao do castelo: " + vetCastelos.get(escolha).situacao());
 				ataque(vetCastelos, escolha);
 				
-				if (vetCastelos.get(escolha) instanceof Europeu) {
-					Europeu casteloE = (Europeu)vetCastelos.get(escolha);
-					casteloE.situacao();
-					
-					if (casteloE.getPontosVida() == 0) {
-						System.out.println("CASTELO " + casteloE.nome + " DESTRUÍDO");
-						vetCastelos.remove(escolha);
-					}
-				}
-				i++;
 			}
 		}
 		
@@ -93,7 +82,7 @@ public class Aplicativo {
 		int escolha;
 		
 		do {
-			escolha = random.nextInt(4);
+			escolha = random.nextInt(3);
 		} while (escolha == castelo);
 		
 		return escolha;
@@ -101,6 +90,7 @@ public class Aplicativo {
 	
 	public static void ataque(ArrayList<Castelo> vetCastelos, int atacado) {
 		Random random = new Random();
+		boolean continua;
 		
 		int ataque;
 		ataque = random.nextInt(11);
@@ -109,23 +99,18 @@ public class Aplicativo {
 			System.out.println("\nQue pena! Tirou 0 no dado, sua ver foi passada!");
 		} else {
 			System.out.println("\nSeu ataque foi de " + ataque +"!!");
+			continua = vetCastelos.get(atacado).ataque(ataque);
+			System.out.println("Situacao do castelo: " + vetCastelos.get(atacado).situacao());
+			System.out.println();
 			
-			if (vetCastelos.get(atacado) instanceof Europeu) {
-				Europeu casteloE = (Europeu)vetCastelos.get(atacado);
-				casteloE.ataque(ataque);
-				
-			} else {
-				Japones casteloJ = (Japones)vetCastelos.get(atacado);
-				casteloJ.ataque(ataque);
+			if(continua == false) {
+				System.out.println("CASTELO " + vetCastelos.get(atacado)+ " DESTRUÍDO");
+				vetCastelos.remove(atacado);
 			}
+			
+			
 			
 		}
 	}
 	
-	public void reformularLista(ArrayList<Castelo> vetCastelos) {
-		
-		for (Castelo castelo: vetCastelos) {
-			
-		}
-	}
 }

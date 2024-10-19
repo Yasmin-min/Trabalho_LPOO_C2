@@ -22,17 +22,17 @@ public class Europeu extends Castelo {
 	public int getNumPaladinos() {
 		return numPaladinos;
 	}
-	
+
 	public boolean ataque(int dado) {
 		this.numPaladinos -= dado;
-		
-		if(dado > numPaladinos) {
+		if(numPaladinos < 0) {
 			if(super.ataque(dado) == true) {
 				numPaladinos += 10;
 				return true;
 			}
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	public String situacao() {
@@ -40,7 +40,7 @@ public class Europeu extends Castelo {
 	}
 	
 	public String toString() {
-		return "Castelo [defesa=" + defesa + ", pontosVida=" + pontosVida + ", nome=" + nome + "Paladinos: " + numPaladinos + "]";
+		return "Castelo [defesa=" + defesa + ", pontosVida=" + pontosVida + ", nome= " + nome + " Paladinos: " + numPaladinos + "]";
 	}
 
 }
