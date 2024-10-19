@@ -4,5 +4,5 @@
 /**
  * 
  */
-module TrabalhoC2 {
+module Trabalho_LPOO_C2 {
 }
